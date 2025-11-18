@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>κάπου ώπα — kinda whoa</title>
+  <title>sweetmas</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -34,19 +34,22 @@
 
     .card{ background:var(--card-bg); padding:var(--gap); border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.08); text-align:center; display:flex; flex-direction:column; align-items:center; gap: var(--gap); width:100%; }
 
-    .title-container { display:flex; flex-direction:column; align-items:center; font-size:2rem; font-weight:bold; gap:0.1em; padding:0 0 .5rem 0; }
+    .title-container { display:flex; flex-direction:column; align-items:center; font-size:2rem; font-weight:bold; gap:0.1em; padding:.5rem; }
     .title-container span:nth-child(odd){ color:#ff4d4d; }
     .title-container span:nth-child(even){ color:#4dff88; }
 
     .top-bar{ display:flex; justify-content:space-between; align-items:center; gap: var(--gap); }
     .name{font-size:1.1rem;font-weight:600;color:var(--fg); margin-bottom:0;}
 
-    .counter-row { display:flex; justify-content:space-between; align-items:center; width:100%; }
-    .counter-button { flex:1; font-weight:bold; font-size:1.5rem; }
-    .counter-center { flex:1; display:flex; flex-direction:column; align-items:center; }
-    .counter-image { width:60px; height:60px; border-radius:10px; background:#ccc; margin-bottom:0.25rem; display:flex; justify-content:center; align-items:center; overflow:hidden; }
+    .counter-row { display:flex; justify-content:space-between; align-items:center; width:100%; gap:1rem; }
+    .counter-button { flex:1; font-weight:bold; font-size:1.5rem; height:60%; }
+    .counter-center { flex:1; display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+    .counter-image { width:5rem; height:5rem; border-radius:10px; background:#ccc; display:flex; justify-content:center; align-items:center; overflow:hidden; }
     .counter-image img { width:100%; height:100%; object-fit:cover; }
-    .counter-count { font-size:1.4rem; font-weight:700; color:var(--fg); }
+
+    .counter-count { font-size:1.4rem; font-weight:700; color:var(--fg); width:6ch; text-align:center; border:none; background:transparent; -moz-appearance:textfield; }
+    .counter-count::-webkit-inner-spin-button, .counter-count::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .counter-count:focus { outline:2px solid #888; border-radius:4px; }
 
     button{ border:0; padding:0.5rem 0.75rem; border-radius:8px; font-size:1.2rem; cursor:pointer; background:var(--btn-bg); color:var(--fg); }
     button:active{transform:scale(.97)}
@@ -66,7 +69,7 @@
 <div class="main-container">
   <div class="card title-container">
     <div style="display:flex; gap:0.1em;">
-      <span>s</span><span>w</span><span>e</span><span>e</span><span>t</span><span>m</span><span>a</span><span>s</span>
+      <span>S</span><span>W</span><span>E</span><span>E</span><span>T</span><span>M</span><span>A</span><span>S</span>
     </div>
   </div>
 
@@ -84,7 +87,7 @@
         <button class="counter-button" data-action="dec" data-key="melomakarona">−</button>
         <div class="counter-center">
           <div class="counter-image"><img src="https://elpidaslittlecorner.gr/wp-content/uploads/2019/12/2h-1100x1536.jpg" alt="Melomakarona"></div>
-          <div class="counter-count" id="melomakarona-count">0</div>
+          <input class="counter-count" id="melomakarona-count" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value="0">
         </div>
         <button class="counter-button" data-action="inc" data-key="melomakarona">+</button>
       </div>
@@ -96,7 +99,7 @@
         <button class="counter-button" data-action="dec" data-key="kourabiedes">−</button>
         <div class="counter-center">
           <div class="counter-image"><img src="https://www.gastronomos.gr/wp-content/uploads/2021/11/kourabiedes-me-indokarydo-gastronomos1-610x762.jpg" alt="Kourabiedes"></div>
-          <div class="counter-count" id="kourabiedes-count">0</div>
+          <input class="counter-count" id="kourabiedes-count" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value="0">
         </div>
         <button class="counter-button" data-action="inc" data-key="kourabiedes">+</button>
       </div>
@@ -108,7 +111,7 @@
         <button class="counter-button" data-action="dec" data-key="diples">−</button>
         <div class="counter-center">
           <div class="counter-image"><img src="https://www.tovima.gr/wp-content/uploads/2025/01/02/MadeInGreece_Diples.jpg" alt="Diples"></div>
-          <div class="counter-count" id="diples-count">0</div>
+          <input class="counter-count" id="diples-count" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value="0">
         </div>
         <button class="counter-button" data-action="inc" data-key="diples">+</button>
       </div>
@@ -162,7 +165,7 @@
 
   function render(){
     const s=readStorage();
-    KEYS.forEach(k=>elems[k].textContent=s.counts[k]||0);
+    KEYS.forEach(k=>elems[k].value=s.counts[k]||0);
     const total=KEYS.reduce((a,k)=>a+(s.counts[k]||0),0);
     totalDisplay.textContent=(currentLang==='gr'?'Σύνολο: ':'Total: ')+total;
   }
@@ -180,6 +183,16 @@
   document.querySelectorAll('button[data-action]').forEach(b=>{
     b.addEventListener('click',()=>{
       change(b.dataset.key,b.dataset.action==='inc'?1:-1);
+    });
+  });
+
+  KEYS.forEach(k=>{
+    elems[k].addEventListener('change',()=>{
+      const val=parseInt(elems[k].value)||0;
+      const s=readStorage();
+      s.counts[k]=Math.max(0,val);
+      writeStorage(s);
+      render();
     });
   });
 
