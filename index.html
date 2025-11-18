@@ -1,8 +1,12 @@
 <!doctype html>
 <html lang="el">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2902312575163816"
-     crossorigin="anonymous"></script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Required for iOS -->
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>sweetmas</title>
@@ -59,11 +63,8 @@
     .footer{ display:flex; flex-wrap:wrap; gap: var(--gap); justify-content:center; }
     .footer button, .footer label{ font-size:0.85rem; padding:0.5rem 0.75rem; background:var(--btn-bg); color:var(--fg); border-radius:8px; cursor:pointer; margin:0; }
 
-    #ad-container { display:flex; align-items:center; justify-content:center; min-height:120px; width:100%; flex-grow:1; flex-shrink:1; }
-    #ad-container ins.adsbygoogle { width:100% !important; height:100% !important; display:block !important; }
-
     .lang-toggle { padding:0.5rem 0.75rem; border-radius:8px; background:var(--btn-bg); cursor:pointer; font-weight:600; text-align:center; }
-    .storage-note { font-size:0.8rem; color:var(--muted); text-align:center; }
+    .storage-note { font-size:0.8rem; color:var(--muted); text-align:center; margin-top: auto; }
   </style>
 </head>
 <body>
@@ -118,18 +119,6 @@
         <button class="counter-button" data-action="inc" data-key="diples">+</button>
       </div>
     </div>
-  </div>
-
-  <div class="card" id="ad-container" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-AD-CLIENT-ID" crossorigin="anonymous"></script>
-    <ins class="adsbygoogle"
-         data-ad-client="YOUR-AD-CLIENT-ID"
-         data-ad-slot="YOUR-AD-SLOT"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
   </div>
 
   <div class="storage-note" id="storage-note">Τα δεδομένα αποθηκεύονται μόνο στη συσκευή σας</div>
@@ -234,6 +223,12 @@
     document.querySelector('label').firstChild.textContent = currentLang==='gr'?'Εισαγωγή':'Import';
   });
 })();
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
 </script>
 
 </body>
