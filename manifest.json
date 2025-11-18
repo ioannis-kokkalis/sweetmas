@@ -2,7 +2,7 @@
   "name": "Sweetmas",
   "short_name": "Sweetmas",
   "start_url": "./",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
